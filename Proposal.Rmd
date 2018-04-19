@@ -34,10 +34,16 @@ tail(MC)
 
 <!--chunk for year column in data frame-->
 ```{r yearcolumn}
-#chunk converts data set 
+#chunk converts dates to years
 library(lubridate)
 MC$Date <-ymd(MC$Date)
 MC$Year <-year(MC$Date)
+```
+
+<!--chunk for Averages of each chemical-->
+```{r AvChem}
+AvChem <-data.frame(ChemicalNamec())
+
 ```
 
 
