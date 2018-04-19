@@ -1,0 +1,74 @@
+---
+title: "UnitTests"
+author: "Maria Boyd"
+date: "April 13, 2018"
+output: pdf_document
+---
+# Test for AVChem.R
+```{r}
+source("AvChem.R")
+
+#create an example toy dataframe
+dat <-data.frame(ChemicalName=c("Chromium","Chromium","Chromium","Zinc","Zinc","Chromium","Chromium"),Data=c(5,3,2,1,2,1,2),Measurement=NA,Date=NA,Year=c(1984,1984,1985,1990,1990,1985,1986))
+#Call AvChem on the toy dataframe
+Answer<-AvChem(dat,"Chromium")
+#Check to see that we got the expected output
+Answer
+dat
+if(Answer==dat)
+{
+  print("passed")
+}else
+{
+  print("failed")
+}
+#chrom 4-1984
+#Chrom 1.5 1985
+#Chrom 2 1986
+
+Answer2 <-AvChem(dat,"Zinc")
+Answer2
+#Zinc 1.5 1990
+
+```
+
+
+
+#Test for SDChem.R
+```{r}
+source("SDChem.R")
+
+#Standard deviation example data frame
+SDChrom <-data.frame(Chemical.Name=c("Chromium","Chromium","Chromium"),SD=c("1.414214","0.7071068","2"), Year=c("1984","1985","1986"))
+SDZinc <-data.frame(Chemical.Name=c("Zinc"),SD=c("0.7071068"), Year=c("1990"))
+#Call SDChem on tot dataframe
+Answer3<-SDChem(dat,"Chromium")
+#Answer 3 should match SDChrom from above
+Answer3
+SDChrom
+if(Answer3==SDChrom)
+{
+  print("passed")
+}else
+{
+  print("failed")
+}
+#Chromium 1.414214 1984
+#Chromium 0.7071068 1985
+#Chromium 2
+
+Answer4<-SDChem(SD,"Zinc")
+#Answer 4 should match SDZinc from above
+#Zinc 0.7071068 1990
+```
+
+
+
+#Test for Plotter.R
+```{r}
+source("Plotter.R")
+#Create plot from example data frame
+Plotter(Answer, Answer3)
+#check visually 
+```
+
