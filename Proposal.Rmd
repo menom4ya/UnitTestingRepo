@@ -19,11 +19,20 @@ MC <-read.csv("MenomineeCounty.csv", stringsAsFactors = FALSE)
 tail(MC)
 
 ```
+<!--chunk for year column in data frame-->
+```{r yearcolumn}
+#chunk converts dates to years
+library(lubridate)
+MC$Date <-ymd(MC$Date)
+MC$Year <-year(MC$Date)
+MC$Data <-as.numeric(MC$Data)
+```
+
+December 11, 2014 Menominee County experience a 500 year flood. An ice jam prevented river flow and many resident living in the flood zone were forced to evacuate. The Oneida Nation sent assistance by transporting their own heavy machinary roughly 50 miles to help the Menominee. 
+
+In 2015 there was an outbreak on the Wolf River of blastomycosis during Memorial day weekend [Thompson](link). Blasto has been linked to forest/trees, water, and soil distruption. 
 
 
-In 2015 there was an outbreak on the Wolf River of blastomycosis during Memorial day weekend [Thompson](link). Blasto has been identified as a sporous 
-
-The outbreak may be linked to soil distruption. 
 
 This study will analyze five chemicals found in high concentrations on the Wolf River in Menominee County, Wisconsin. The five chemicals of interest are arsenic, chromium, phenanthrene, mercury, and manganese. Two of the five have been idenified as problematic by tribal members as recent talks about the Back40 mine ignited controversay. The potential for increased levels in toxic chemicals is astronomical. Interestingly testing has been discontinued since 2005 for the most prevalent chemicals identified except one, manganese.
 
@@ -39,16 +48,7 @@ Are these three chemicals toxic to human health?
 
 Can we see a large deviation in chemical levels per year?
 
-Last piece of information is going to pertain to remediation options or potential mitigation. Not sure I 
-
-<!--chunk for year column in data frame-->
-```{r yearcolumn}
-#chunk converts dates to years
-library(lubridate)
-MC$Date <-ymd(MC$Date)
-MC$Year <-year(MC$Date)
-MC$Data <-as.numeric(MC$Data)
-```
+Last piece of information is going to pertain to remediation options or potential mitigation.
 
 <!--chunk for means of each chemical-->
 ```{r AvChem}
