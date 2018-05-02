@@ -7,19 +7,7 @@ output: html_document
 
 #Introduction
 
-This study will analyze five chemicals found in high concentrations on the Wolf River in Menominee County, Wisconsin. The five chemicals of interest are arsenic, chromium, phenanthrene, mercury, and manganese. Two of the five have been idenified as problematic by tribal members as recent talks about the Back40 mine ignited controversay. In an interivew Annie Wilber touches on existing impacts of manganese today and how detrimental it will become if the mine is approved. The potential for increased levels in thsee chemicals is astronomical. Interestingly testing has been discontinued since 2005 for the most prevalent chemicals identified except one, manganese.
-
-2008 was the last year Menominee County was test for mercury. There are tests as far back as 1982 with records as high as 99.8 mg/l in 2003. Lead jump up to it's highest at 39 mg/l in downtown Menominee County. 
-
-What toxic chemicals are in highest concentrations in Menominee County water?
-
-What is the standard deviation for 3 chosen chemicals?
-How many observations per chemical?
-
-Of the three chemicals, which is most prevalent?
-Are these three chemicals toxic to human health?
-
-Last piece of information is going to pertain to remediation options or potential mitigation. Not sure I 
+The Wolf River runs directly through Menominee County. Menominee County is located in Northeast Wisconsin and harbors one of America's few hardwood forests. Menominee County is also the home of the Menominee Nation. Historically, the Menominee used the river to transport lumber from the Mill in Neopit, to various placed down river in Wisconsin. In addition to the industrial uses present day, the river is used for white water rafting. 
 
 <!--chunk for getting data-->
 ```{r, RetreiveData}
@@ -32,20 +20,53 @@ tail(MC)
 
 ```
 
+
+In 2015 there was an outbreak on the Wolf River of blastomycosis during Memorial day weekend [Thompson](link). Blasto has been identified as a sporous 
+
+The outbreak may be linked to soil distruption. 
+
+This study will analyze five chemicals found in high concentrations on the Wolf River in Menominee County, Wisconsin. The five chemicals of interest are arsenic, chromium, phenanthrene, mercury, and manganese. Two of the five have been idenified as problematic by tribal members as recent talks about the Back40 mine ignited controversay. The potential for increased levels in toxic chemicals is astronomical. Interestingly testing has been discontinued since 2005 for the most prevalent chemicals identified except one, manganese.
+
+2008 was the last year Menominee County was test for mercury. There are tests as far back as 1982 with records as high as 99.8 mg/l in 2003. Lead jump up to it's highest at 39 mg/l in downtown Menominee County. 
+
+What toxic chemicals are in highest concentrations in Menominee County water?
+
+What is the standard deviation for 3 chosen chemicals?
+How many observations per chemical?
+
+Of the three chemicals, which is most prevalent?
+Are these three chemicals toxic to human health?
+
+Can we see a large deviation in chemical levels per year?
+
+Last piece of information is going to pertain to remediation options or potential mitigation. Not sure I 
+
 <!--chunk for year column in data frame-->
 ```{r yearcolumn}
 #chunk converts dates to years
 library(lubridate)
 MC$Date <-ymd(MC$Date)
 MC$Year <-year(MC$Date)
+MC$Data <-as.numeric(MC$Data)
 ```
 
-<!--chunk for Averages of each chemical-->
+<!--chunk for means of each chemical-->
 ```{r AvChem}
-AvChem <-data.frame(ChemicalNamec())
+#chunk will use 
+#Chemical_To_Analyze <-"Chromium"
+#Chrom <-MC[MC$ChemicalName==Chemical_To_Analyze,]
+#MChrom<-MC(mean(Year~Data))
+#AnnualChrom <-aggregate(data~year,data = AVChrom,mean, as.numeric)
+
+
+AvChem(dat=MC, chemical = "Chromium")
+AvChem(dat=MC, chemical = "Arsenic")
+AvChem(dat=MC, chemical = "Mercury")
+AvChem(dat=MC, chemical = "Manganese")
+AvChem(dat=MC, chemical = "Phenanthrene")
+
 
 ```
-
 
 <!--chunk for filtering data set to only contain record of toxic chemicals we're interested in-->
 ```{r}
@@ -53,12 +74,12 @@ AvChem <-data.frame(ChemicalNamec())
 #Observations for all five chemicals
 #Five chemicals arsenic, phenanthrene, mercury, manganese, chromium
 
-MCAsMn <-MC[MC$ChemicalName%in%c("Manganese","Arsenic"),]
-MCHgCoal <-MC[MC$ChemicalName%in%c("Phenanthrene","Mercury"),]
-MCCr <-MC[MC$ChemicalName=="Chromium",]
+#MCAsMn <-MC[MC$ChemicalName%in%c("Manganese","Arsenic"),]
+#MCHgCoal <-MC[MC$ChemicalName%in%c("Phenanthrene","Mercury"),]
+#MCCr <-MC[MC$ChemicalName=="Chromium",]
 
 #below function allows me to view chemicals in sets
-View(MCAsMn)
+#View(MCAsMn)
 
 
 ```
@@ -66,27 +87,50 @@ View(MCAsMn)
 <!--Outlines water quality standards for manganese toxicity to humans-->
 [Tata & Howard Water Solution](https://tataandhoward.com/2017/01/importance-treating-manganese-drinking-water/)
 
-
-
 ```{r StandardDev}
 
 #StandardDevCr <-sd("MCCr") THIS ONE DIDN'T WORK
-Chemical_To_Analyze <- "Chromium"
-StandardDevCr <-sd(MC[MC$ChemicalName==Chemical_To_Analyze,"Data"], na.rm = TRUE)#SD for 1984:2017
+#Chemical_To_Analyze <- "Chromium"
+#StandardDevCr <-sd(MC[MC$ChemicalName==Chemical_To_Analyze,"Data"], na.rm = TRUE)#SD for 1984:2017
 
-MeanCr <-mean(MC[MC$ChemicalName==Chemical_To_Analyze,"Data"], na.rm = TRUE)
-
-
-
-CrSD <-aggregate(data~years,data=StandardDevCr)
+SDChem(dat=MC, chemical = "Chromium")
+SDChem(dat=MC, chemical = "Arsenic")
+SDChem(dat=MC, chemical = "Mercury")
+SDChem(dat=MC, chemical = "Manganese")
+SDChem(dat=MC, chemical = "Phenanthrene")
 
 
 
 ```
 
+```{r}
+CHmean <-AvChem(MC,"Chromium")
+CHSD <-SDChem(MC,"Chromium")
+PlotChem(CHmean, CHSD)
+```
+```{r}
+MNmean <-AvChem(MC,"Manganese")
+MNSD <-SDChem(MC,"Manganese")
+PlotChem(MNmean, MNSD)
+```
 
+```{r}
+ASmean <-AvChem(MC,"Arsenic")
+ASSD <-SDChem(MC,"Arsenic")
+PlotChem(ASmean, ASSD)
+```
 
+```{r}
+Pmean <-AvChem(MC,"Phenanthrene")
+PSD <-SDChem(MC,"Phenanthrene")
+PlotChem(Pmean, PSD)
+```
 
+```{r}
+HGmean <-AvChem(MC,"Mercury")
+HGSD <-SDChem(MC,"Mercury")
+PlotChem(HGmean, HGSD)
+```
 
 
 

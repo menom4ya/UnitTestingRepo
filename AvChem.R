@@ -15,6 +15,11 @@
 
 AvChem <-function(dat, chemical)
 {
-  
+  #chemical = chrom, arsenic, mercury or...
+  DatChem <-dat[dat$ChemicalName==chemical,]#Throwin out
+  ANS <-aggregate(Data~Year,data=DatChem, FUN=mean, na.rm=TRUE)#Mean yearly
+  names(ANS)[2]<-"Mean"
+  return(ANS)
   
 }
+
