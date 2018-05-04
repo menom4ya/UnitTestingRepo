@@ -10,7 +10,7 @@
 
 SDChem <-function(dat, chemical)
 {
-  #chemical = chrom, arsenic, mercury or...
+  
   DatChem <-dat[dat$ChemicalName==chemical,]#Throwin out
   ANS <-aggregate(Data~Year,data=DatChem, FUN=sd, na.rm=TRUE)#SD yearly
   names(ANS)[2]<-"StandardDeviation"
