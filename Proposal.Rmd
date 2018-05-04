@@ -7,7 +7,7 @@ output: html_document
 
 #Introduction
 
-The Wolf River runs directly through Menominee County. Menominee County is located in Northeast Wisconsin and harbors one of America's few hardwood forests. Menominee County is also the home of the Menominee Nation. Historically, the Menominee used the river to transport lumber from the Mill in Neopit, to various placed down river in Wisconsin. In addition to the industrial uses present day, the river is used for white water rafting. 
+The Wolf River runs directly through Menominee County. Menominee County is located in Northeast Wisconsin and harbors one of America's few hardwood forests. Menominee County is also the home of the Menominee Nation. Historically, the Menominee used the river to transport lumber from the Mill in Neopit, to various placed down river in Wisconsin. Present day, the river is used for white water rafting. 
 
 <!--chunk for getting data-->
 ```{r, RetreiveData}
@@ -17,6 +17,7 @@ The Wolf River runs directly through Menominee County. Menominee County is locat
 MC <-read.csv("MenomineeCounty.csv", stringsAsFactors = FALSE)
 #head(MC)
 tail(MC)
+
 
 ```
 <!--chunk for year column in data frame-->
@@ -28,27 +29,16 @@ MC$Year <-year(MC$Date)
 MC$Data <-as.numeric(MC$Data)
 ```
 
-December 11, 2014 Menominee County experience a 500 year flood. An ice jam prevented river flow and many resident living in the flood zone were forced to evacuate. The Oneida Nation sent assistance by transporting their own heavy machinary roughly 50 miles to help the Menominee. 
+December 11, 2014 Menominee County experience a historical flood. An ice jam accumulated downtown preventing river flow. Huge ice blocks pierced the river bottom creating a massive perturbation of historical pollution. Many resident living in the flood zone were forced to evacuate. The Oneida Nation sent assistance by transporting the tribes heavy machinary roughly 50 miles to help the Menominee. 
+  That proceeding May, an outbreak of blastomycosis occured on the Wolf River.  Wisconsin Department of Health services reports 59 confirmed cases and 39 probable cases linked to people rafting on the Wolf River [Thompson](http://journals.sagepub.com/doi/abs/10.23907/2017.014). Just six months prior to the outbreak, was the greatest soil disturbance in 500 years. Blastomycosis has been linked to soil disturbance in Wisconsin waterways as early as 1984 [Klein](https://www.nejm.org/doi/full/10.1056/NEJM198602273140901). If blastomycosis optimized asylum in the river bottom, what other microorganisms or historical pollutants could have been reintorduced back into waterways?
 
-In 2015 there was an outbreak on the Wolf River of blastomycosis during Memorial day weekend [Thompson](link). Blasto has been linked to forest/trees, water, and soil distruption. 
+[EPA](https://www.epa.gov/ground-water-and-drinking-water/national-primary-drinking-water-regulations)
 
 
+  Identified in the first segment is the means of each chemical Starting with Chromium. The EPA set the standard for Chromium 3 in drinking water is .01 Mg/L or 10 ppb and generally isn't toxic. However, hexivalentchromium (Chrom VI)  has been associated with cancer in humans. The EPA sets the standard for Arsenic in drinking water at is .001 Mg/L or 10 ppb. Arsenic has been linked to dermatological issues, cancer, and has been identified as an inhibitor of the circulatory system. The standard for Mercury is .002 Mg/L or 2 ppb. Mercury can cause perminant kidney damage when consumed in excess over a long period of time (All chemicals in the Menominee County data set were recored in mg/L) [EPA](https://safewater.zendesk.com). Phenanthrene is classified as "D" or not classified. No studies have been compiled analyzing human consumption of Phenanthrene and animal data composed is inadequate [Harrahy](https://www.epa.gov/sites/production/files/2015-06/documents/wi_297_05272004.pdf). The final chemical is manganese. The standard for consumption is .05 Mg/L or 50 ppb. This chemical has been identified by Menominee tribal members becoming more prevalent more recently. Methylcyclopentadienyl manganese tricarbonyl (MMT) used in gasoline exposing the public through chemical combustion. Females are documented to have a high sensitivity to manganese specifically in the young and elder demographics [Boyes](https://cfpub.epa.gov/si/si_public_file_download.cfm?p_download_id=529624). A study was conducted by the EPA to identify manganese exposure and cognitive function. Results concluse that manganese exposure can directly correlates to education level.
+  This study will identify the highest toxic chemical concentrations and their distribution overtime in Menominee County.  The five chemicals of interest are arsenic, chromium, phenanthrene, mercury, and manganese. One of the five chemicals have been idenified as problematic by tribal members; manganese. The issue with this particular chemical is that the water gauge is located in an area on the reservation that used to harbor a gas station. Manganese is now prevalent in the previously outline fluvial water system on the Wolf River. 
 
-This study will analyze five chemicals found in high concentrations on the Wolf River in Menominee County, Wisconsin. The five chemicals of interest are arsenic, chromium, phenanthrene, mercury, and manganese. Two of the five have been idenified as problematic by tribal members as recent talks about the Back40 mine ignited controversay. The potential for increased levels in toxic chemicals is astronomical. Interestingly testing has been discontinued since 2005 for the most prevalent chemicals identified except one, manganese.
-
-2008 was the last year Menominee County was test for mercury. There are tests as far back as 1982 with records as high as 99.8 mg/l in 2003. Lead jump up to it's highest at 39 mg/l in downtown Menominee County. 
-
-What toxic chemicals are in highest concentrations in Menominee County water?
-
-What is the standard deviation for 3 chosen chemicals?
-How many observations per chemical?
-
-Of the three chemicals, which is most prevalent?
-Are these three chemicals toxic to human health?
-
-Can we see a large deviation in chemical levels per year?
-
-Last piece of information is going to pertain to remediation options or potential mitigation.
+We identify the average means of all five chemicals:
 
 <!--chunk for means of each chemical-->
 ```{r AvChem}
@@ -57,7 +47,6 @@ Last piece of information is going to pertain to remediation options or potentia
 #Chrom <-MC[MC$ChemicalName==Chemical_To_Analyze,]
 #MChrom<-MC(mean(Year~Data))
 #AnnualChrom <-aggregate(data~year,data = AVChrom,mean, as.numeric)
-
 
 AvChem(dat=MC, chemical = "Chromium")
 AvChem(dat=MC, chemical = "Arsenic")
@@ -68,21 +57,7 @@ AvChem(dat=MC, chemical = "Phenanthrene")
 
 ```
 
-<!--chunk for filtering data set to only contain record of toxic chemicals we're interested in-->
-```{r}
-
-#Observations for all five chemicals
-#Five chemicals arsenic, phenanthrene, mercury, manganese, chromium
-
-#MCAsMn <-MC[MC$ChemicalName%in%c("Manganese","Arsenic"),]
-#MCHgCoal <-MC[MC$ChemicalName%in%c("Phenanthrene","Mercury"),]
-#MCCr <-MC[MC$ChemicalName=="Chromium",]
-
-#below function allows me to view chemicals in sets
-#View(MCAsMn)
-
-
-```
+The mean of all five chemical levels are significantly higher than what are documented as safe levels. Being that the water data is from the Wolf River and is being compared to "safe drinking water standards", how safe is it for the public to swim in that water? A study at Cornell University indicates that chemical exposure though the skin is the most common and prevalent type of chemical exposure [EXTOXNET](http://pmep.cce.cornell.edu/profiles/extoxnet/TIB/entry.html). It is imperative to address these issues and perhaps conduct water quality testing.
 
 <!--Outlines water quality standards for manganese toxicity to humans-->
 [Tata & Howard Water Solution](https://tataandhoward.com/2017/01/importance-treating-manganese-drinking-water/)
@@ -132,6 +107,6 @@ HGSD <-SDChem(MC,"Mercury")
 PlotChem(HGmean, HGSD)
 ```
 
-
+The potential for increased levels in toxic chemicals is astronomical. Interestingly testing has been discontinued since 2005 for the most prevalent chemicals identified except one, manganese.
 
 
