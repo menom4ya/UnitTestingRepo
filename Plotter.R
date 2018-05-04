@@ -10,7 +10,7 @@
 #
 PlotChem <-function(MeanByYear, SDByYear)
 {
-  #chemical = chrom, arsenic, mercury or...
+  
   #Plotdat <-MeansByYear[MeanByYear$ChemicalName==chemical, SDByYear$ChemicalName==chemical]
   Mdat <-merge(MeanByYear,SDByYear)
   plot(Mean~Year, data=Mdat,xlab="",ylab="",ylim=range(Mdat$Mean-Mdat$StandardDeviation,Mdat$Mean+Mdat$StandardDeviation, na.rm = TRUE))
