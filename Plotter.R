@@ -19,5 +19,5 @@ PlotChem <-function(MeanByYear, SDByYear)
   
 }
 
-#this originally works.
+#this originally works
 #plot(as.numeric(as.character(SD))~Year, data=SD[SD$Chemical.Name=="Chromium",])
