@@ -2,7 +2,10 @@
 title: "Proposal"
 author: "Maria Boyd"
 date: "March 29, 2018"
-output: html_document
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 #Introduction
@@ -35,14 +38,14 @@ December 11, 2014 Menominee County experience a historical flood. An ice jam acc
 [EPA](https://www.epa.gov/ground-water-and-drinking-water/national-primary-drinking-water-regulations)
 
 
-  Identified in the first segment is the means of each chemical Starting with Chromium. The EPA set the standard for Chromium 3 in drinking water is .01 Mg/L or 10 ppb and generally isn't toxic. However, hexivalentchromium (Chrom VI)  has been associated with cancer in humans. The EPA sets the standard for Arsenic in drinking water at is .001 Mg/L or 10 ppb. Arsenic has been linked to dermatological issues, cancer, and has been identified as an inhibitor of the circulatory system. The standard for Mercury is .002 Mg/L or 2 ppb. Mercury can cause perminant kidney damage when consumed in excess over a long period of time (All chemicals in the Menominee County data set were recored in mg/L) [EPA](https://safewater.zendesk.com). Phenanthrene is classified as "D" or not classified. No studies have been compiled analyzing human consumption of Phenanthrene and animal data composed is inadequate [Harrahy](https://www.epa.gov/sites/production/files/2015-06/documents/wi_297_05272004.pdf). The final chemical is manganese. The standard for consumption is .05 Mg/L or 50 ppb. This chemical has been identified by Menominee tribal members becoming more prevalent more recently. Methylcyclopentadienyl manganese tricarbonyl (MMT) used in gasoline exposing the public through chemical combustion. Females are documented to have a high sensitivity to manganese specifically in the young and elder demographics [Boyes](https://cfpub.epa.gov/si/si_public_file_download.cfm?p_download_id=529624). A study was conducted by the EPA to identify manganese exposure and cognitive function. Results concluse that manganese exposure can directly correlates to education level.
+  Identified in the first segment is the means of each chemical Starting with Chromium. The EPA set the standard for Chromium 3 in drinking water is .01 Mg/L or 10 ppb and generally isn't toxic. However, hexivalentchromium (Chrom VI)  has been associated with cancer in humans. The EPA sets the standard for Arsenic in drinking water at is .001 Mg/L or 10 ppb. Arsenic has been linked to dermatological issues, cancer, and has been identified as an inhibitor of the circulatory system. The standard for Mercury is .002 Mg/L or 2 ppb. Mercury can cause perminant kidney damage when consumed in excess over a long period of time (All chemicals in the Menominee County data set were recored in mg/L) [EPA](https://safewater.zendesk.com). Phenanthrene is classified as "D" or not classified. No studies have been compiled analyzing human consumption of Phenanthrene and animal data composed is inadequate [Harrahy](https://www.epa.gov/sites/production/files/2015-06/documents/wi_297_05272004.pdf). The final chemical is manganese. The standard for consumption is .05 Mg/L or 50 ppb. This chemical has been identified by Menominee tribal members becoming more prevalent more recently. Methylcyclopentadienyl manganese tricarbonyl (MMT) used in gasoline exposing the public through chemical combustion. Females are documented to have a high sensitivity to manganese specifically in the young and elder demographics [Boyes](https://cfpub.epa.gov/si/si_public_file_download.cfm?p_download_id=529624). A study was conducted by the EPA to identify manganese exposure and cognitive function. Results conclude that manganese exposure can directly correlates to education level [Tata & Howard Water Solution](https://tataandhoward.com/2017/01/importance-treating-manganese-drinking-water/).
   This study will identify the highest toxic chemical concentrations and their distribution overtime in Menominee County.  The five chemicals of interest are arsenic, chromium, phenanthrene, mercury, and manganese. One of the five chemicals have been idenified as problematic by tribal members; manganese. The issue with this particular chemical is that the water gauge is located in an area on the reservation that used to harbor a gas station. Manganese is now prevalent in the previously outline fluvial water system on the Wolf River. 
 
 We identify the average means of all five chemicals:
 
 <!--chunk for means of each chemical-->
 ```{r AvChem}
-#chunk will use 
+
 #Chemical_To_Analyze <-"Chromium"
 #Chrom <-MC[MC$ChemicalName==Chemical_To_Analyze,]
 #MChrom<-MC(mean(Year~Data))
@@ -57,10 +60,9 @@ AvChem(dat=MC, chemical = "Phenanthrene")
 
 ```
 
-The mean of all five chemical levels are significantly higher than what are documented as safe levels. Being that the water data is from the Wolf River and is being compared to "safe drinking water standards", how safe is it for the public to swim in that water? A study at Cornell University indicates that chemical exposure though the skin is the most common and prevalent type of chemical exposure [EXTOXNET](http://pmep.cce.cornell.edu/profiles/extoxnet/TIB/entry.html). It is imperative to address these issues and perhaps conduct water quality testing.
+  The mean of all five chemical levels are significantly higher than what are documented as safe levels. Being that the water data is from the Wolf River and is being compared to "safe drinking water standards", how safe is it for the public to swim in that water? A study at Cornell University indicates that chemical exposure though the skin is the most common and prevalent type of chemical exposure [Extoxnet](http://pmep.cce.cornell.edu/profiles/extoxnet/TIB/entry.html). It is imperative to address these issues and perhaps conduct water quality testing.
+  In correlation to the mean the standard deviation of each chemical has also been calculated and is mapped in the section below. 
 
-<!--Outlines water quality standards for manganese toxicity to humans-->
-[Tata & Howard Water Solution](https://tataandhoward.com/2017/01/importance-treating-manganese-drinking-water/)
 
 ```{r StandardDev}
 
@@ -78,11 +80,15 @@ SDChem(dat=MC, chemical = "Phenanthrene")
 
 ```
 
+
 ```{r}
 CHmean <-AvChem(MC,"Chromium")
 CHSD <-SDChem(MC,"Chromium")
 PlotChem(CHmean, CHSD)
 ```
+
+
+
 ```{r}
 MNmean <-AvChem(MC,"Manganese")
 MNSD <-SDChem(MC,"Manganese")
@@ -107,6 +113,8 @@ HGSD <-SDChem(MC,"Mercury")
 PlotChem(HGmean, HGSD)
 ```
 
-The potential for increased levels in toxic chemicals is astronomical. Interestingly testing has been discontinued since 2005 for the most prevalent chemicals identified except one, manganese.
+Chromium is the first plot. The data for chromium seems to be missing record from 1988-1994 however peaking at .071 or 71 ppb in 1991. The peak of 1991 has a direct impact on the standard deviation distribution. Arsenic and mercury is also missing a data from similar dates for 1988-1994. Arsenic has a rather erratic distribution peeking and dropping in the same years. Mercury has the most stable distribution of the five chemicals with levels rarely deviating from the mean. Phenanthrene has a consistant deviation over time. And similar to arsenc, manganese has a variable distribution peeking and dropping simultaneously. 
+
+The potential for increased levels in toxic chemicals is astronomical. Interestingly testing has been discontinued since 2005 for the most prevalent chemicals identified except one, manganese. It is imperative to inform the community of the prevalent chemicals identified in this research. 
 
 
